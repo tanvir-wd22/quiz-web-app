@@ -9,6 +9,7 @@ function App() {
   const handleNextQuiz = () => {
     // setCurrentIndex(currentIndex + 1);
     setCurrentIndex((prev) => prev + 1);
+    setSelectedOption('');
   };
 
   return (
@@ -24,14 +25,18 @@ function App() {
             {currentQuestion.options.map((option) => (
               <button
                 onClick={() => setSelectedOption(option)}
-                className={`btn btn-soft w-full justify-start ${selectedOption === option ? 'btn-primary' : 'btn-outline'}`}
+                className={`btn w-full justify-start ${selectedOption === option ? 'btn-primary' : 'btn-outline'}`}
               >
                 {option}
               </button>
             ))}
           </div>
           {/* next */}
-          <button onClick={handleNextQuiz} className="btn btn-secondary w-full">
+          <button
+            onClick={handleNextQuiz}
+            disabled={!selectedOption}
+            className="btn btn-secondary w-full"
+          >
             Next Quiz
           </button>
         </div>
