@@ -6,6 +6,10 @@ function App() {
   const [selectedOption, setSelectedOption] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentQuestion = sampleData[currentIndex];
+  const handleNextQuiz = () => {
+    // setCurrentIndex(currentIndex + 1);
+    setCurrentIndex((prev) => prev + 1);
+  };
 
   return (
     <>
@@ -27,7 +31,9 @@ function App() {
             ))}
           </div>
           {/* next */}
-          <button className="btn btn-secondary w-full">Next Quiz</button>
+          <button onClick={handleNextQuiz} className="btn btn-secondary w-full">
+            Next Quiz
+          </button>
         </div>
       </section>
     </>
