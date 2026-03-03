@@ -26,6 +26,20 @@ function App() {
     <>
       <section className="min-h-screen flex justify-center items-center">
         <div className="space-y-6">
+          {/* progress */}
+          <div className="flex justify-between">
+            <span>
+              Question {currentIndex + 1} of {sampleData.length}
+            </span>
+            <span className="badge badge-outline badge-primary">
+              {((currentIndex + 1) / sampleData.length) * 100} %
+            </span>
+          </div>
+          <progress
+            className="progress progress-primary w-full"
+            value={currentIndex + 1}
+            max={sampleData.length}
+          ></progress>
           {/* title */}
           <h1 className="text-2xl font-semibold leading-tight">
             {currentQuestion.title}
