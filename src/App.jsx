@@ -1,8 +1,9 @@
 import sampleData from './data/sampleData';
-console.log(sampleData);
+// console.log(sampleData);
 import { useState } from 'react';
 
 function App() {
+  const [userAnswer, setUserAnswer] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentQuestion = sampleData[currentIndex];
@@ -10,7 +11,9 @@ function App() {
     // setCurrentIndex(currentIndex + 1);
     setCurrentIndex((prev) => prev + 1);
     setSelectedOption('');
+    setUserAnswer([...userAnswer, selectedOption]);
   };
+  console.log(userAnswer);
 
   return (
     <>
@@ -22,8 +25,9 @@ function App() {
           </h1>
           {/* options */}
           <div className="grid grid-cols-1 gap-4">
-            {currentQuestion.options.map((option) => (
+            {currentQuestion.options.map((option, index) => (
               <button
+                key={index}
                 onClick={() => setSelectedOption(option)}
                 className={`btn w-full justify-start ${selectedOption === option ? 'btn-primary' : 'btn-outline'}`}
               >
