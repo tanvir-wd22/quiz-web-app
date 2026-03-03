@@ -1,8 +1,11 @@
+import Quiz from './copmonents/Quiz';
+import Result from './copmonents/Result';
 import sampleData from './data/sampleData';
 // console.log(sampleData);
 import { useState } from 'react';
 
 function App() {
+  const [screen, setScreen] = useState('quiz');
   const [userScore, setUserScore] = useState(0);
   const [userAnswer, setUserAnswer] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
@@ -15,59 +18,33 @@ function App() {
       setUserScore((prev) => prev + 1);
       // setUserScore(userScore + 1);
     }
-    // setCurrentIndex(currentIndex + 1);
-    setCurrentIndex((prev) => prev + 1);
-    setSelectedOption('');
+    // === add all users answer inside an array ===
     setUserAnswer([...userAnswer, selectedOption]);
+
+    if (currentIndex < sampleData.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+      // setCurrentIndex(currentIndex + 1);
+      setSelectedOption('');
+    } else {
+      setScreen('result');
+    }
   };
+
   console.log(userAnswer, userScore);
 
-  return (
-    <>
-      <section className="min-h-screen flex justify-center items-center">
-        <div className="space-y-6">
-          {/* progress */}
-          <div className="flex justify-between">
-            <span>
-              Question {currentIndex + 1} of {sampleData.length}
-            </span>
-            <span className="badge badge-outline badge-primary">
-              {((currentIndex + 1) / sampleData.length) * 100} %
-            </span>
-          </div>
-          <progress
-            className="progress progress-primary w-full"
-            value={currentIndex + 1}
-            max={sampleData.length}
-          ></progress>
-          {/* title */}
-          <h1 className="text-2xl font-semibold leading-tight">
-            {currentQuestion.title}
-          </h1>
-          {/* options */}
-          <div className="grid grid-cols-1 gap-4">
-            {currentQuestion.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedOption(option)}
-                className={`btn w-full justify-start ${selectedOption === option ? 'btn-primary' : 'btn-outline'}`}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-          {/* next */}
-          <button
-            onClick={handleNextQuiz}
-            disabled={!selectedOption}
-            className="btn btn-secondary w-full"
-          >
-            Next Quiz
-          </button>
-        </div>
-      </section>
-    </>
-  );
+  if (screen === 'result') {
+  return <Result userScore={userScore}></Result>;
+  } else {
+    return (
+      <Quiz
+        handleNextQuiz={handleNextQuiz}
+        currentQuestion={currentQuestion}
+        currentIndex={currentIndex}
+        selectedOption={selectedOption}
+        setSelectedOption={setSelectedOption}
+      ></Quiz>
+    );
+  }
 }
 
 export default App;
