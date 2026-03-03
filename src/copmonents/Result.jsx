@@ -1,6 +1,7 @@
 import sampleData from '../data/sampleData';
 
-const Result = ({ userScore }) => {
+const Result = ({ userScore, userAnswer, playAgain }) => {
+  //   console.log(userAnswer);
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="card bg-base-300 shadow-sm">
@@ -19,7 +20,26 @@ const Result = ({ userScore }) => {
         </div>
         {/* answers */}
         <div className="card-body">
-          <h2 className="card-title text-center">Your Answers</h2>
+          <h2 className="card-title">See Result</h2>
+          {sampleData.map((quiz, index) => {
+            const quizAnswer = userAnswer[index];
+            let isCorrect = quizAnswer === quiz.answer;
+            return (
+              <div key={index} className="border-2 border-sky-400 p-2">
+                <p>{quiz.title}</p>
+                <p
+                  className={`${isCorrect ? 'text-green-500' : 'text-red-500'}`}
+                >
+                  Your Answer : {quizAnswer}
+                </p>
+                <p>Correct Answer : {quiz.answer}</p>
+              </div>
+            );
+          })}
+
+          <button onClick={playAgain} className="btn btn-warning">
+            Play Again
+          </button>
         </div>
       </div>
     </div>

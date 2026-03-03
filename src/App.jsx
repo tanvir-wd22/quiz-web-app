@@ -12,6 +12,14 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentQuestion = sampleData[currentIndex];
 
+  const playAgain = () => {
+    setScreen('quiz');
+    setUserScore(0);
+    setUserAnswer([]);
+    setSelectedOption('');
+    setCurrentIndex(0);
+  };
+
   const handleNextQuiz = () => {
     let isCorrect = selectedOption === currentQuestion.answer;
     if (isCorrect) {
@@ -30,10 +38,16 @@ function App() {
     }
   };
 
-  console.log(userAnswer, userScore);
+  // console.log(userAnswer, userScore);
 
   if (screen === 'result') {
-  return <Result userScore={userScore}></Result>;
+    return (
+      <Result
+        userScore={userScore}
+        userAnswer={userAnswer}
+        playAgain={playAgain}
+      ></Result>
+    );
   } else {
     return (
       <Quiz
