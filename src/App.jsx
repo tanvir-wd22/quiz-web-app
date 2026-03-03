@@ -3,17 +3,24 @@ import sampleData from './data/sampleData';
 import { useState } from 'react';
 
 function App() {
+  const [userScore, setUserScore] = useState(0);
   const [userAnswer, setUserAnswer] = useState([]);
   const [selectedOption, setSelectedOption] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentQuestion = sampleData[currentIndex];
+
   const handleNextQuiz = () => {
+    let isCorrect = selectedOption === currentQuestion.answer;
+    if (isCorrect) {
+      setUserScore((prev) => prev + 1);
+      // setUserScore(userScore + 1);
+    }
     // setCurrentIndex(currentIndex + 1);
     setCurrentIndex((prev) => prev + 1);
     setSelectedOption('');
     setUserAnswer([...userAnswer, selectedOption]);
   };
-  console.log(userAnswer);
+  console.log(userAnswer, userScore);
 
   return (
     <>
