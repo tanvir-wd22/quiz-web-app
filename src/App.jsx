@@ -1,10 +1,11 @@
 import sampleData from './data/sampleData';
 console.log(sampleData);
-// import { useState } from 'react'
+import { useState } from 'react';
 
 function App() {
-  const currentQuestion = sampleData[0];
-  // const [count, setCount] = useState(0)
+  const [selectedOption, setSelectedOption] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentQuestion = sampleData[currentIndex];
 
   return (
     <>
@@ -17,7 +18,10 @@ function App() {
           {/* options */}
           <div className="grid grid-cols-1 gap-4">
             {currentQuestion.options.map((option) => (
-              <button className="btn btn-soft w-full justify-start">
+              <button
+                onClick={() => setSelectedOption(option)}
+                className={`btn btn-soft w-full justify-start ${selectedOption === option ? 'btn-primary' : 'btn-outline'}`}
+              >
                 {option}
               </button>
             ))}
